@@ -1,40 +1,38 @@
-# iRepOptimizer
+# MagicOptimizer
 
 ## problema 
+Un amigo mío juega un juego de cartas llamado Magic en formato fisico, en el formato Commander, que se juega con mazos de 100 cartas y por ser estudiante dispone de un presupuesto
+limitado. Cuando quiere mejorar su mazo, tiene que lidiar con cientos de cartas candidatas cada una con sus caracteristicas coste de maná, precio, legalidad para su formato, etc. y
+le cuesta mucho trabajo saber que conjunto de cartas realmente mejora su mazo teniendo en cuenta el presupuesto. Si elige mal, acaba gastando su dinero en cartas que aportan menos de lo
+que potencialmente podria haber conseguido con otra combinacion, o incluso acabar con un mazo peor al que tenia antes.
 
-Un estudiante de Granada en su tiempo libre se dedica a la reparación de moviles iPhone, al ser estudiante, dispone de un capital limitado,por tanto,
-busca obtener el mayor beneficio posible con cada telefono además de minimizar el  riesgo de reparación, ya que no es lo mismo cambiar una bateria que reparar
-el Face ID.
+## Lógica de negocio
+Para resolver este problema tenemos que partir del mazo actual, el presupuesto del que disponemos, y una lista de cartas candidatas que el jugador conoce y le interesa evaluar para su mazo.
 
-Tambien tiene problemas con el tiempo que pasan los moviles una vez ya comprado porque hay teléfonos que quedan inmovilizados durante semanas a la espera de piezas
-o de una reparación compleja, perdiendo valor de mercado.
+En este caso como se trata del formato Commander toda la estrategia se centra en un unico comandante, por tanto, el jugador tendra que definir los roles que le interesan. Tanto 
+en las cartas de su mazo como en las cartas candidatas tendran que tener asignado el rol que cumplen, todo esto segun el criterio del jugador.
 
-## Origen del problema 
-Este problema surge de mi experiencia personal comprando, reparando y revendiendo teléfonos iPhone en mi tiempo libre. Al no tener un presupuesto amplio puedo decir
-lo importante que es elegir bien que dispositivos merecen más la pena invertir el capital que tengo disponible.
-
-+ 
+A partir de ahi hacemos lo siguiente:
+1. Tendrían que pasar un filtro para descartar las cartas que no cumplen el formato seleccionado y cuyo color encaja en el mazo ademas de descartar las cartas que superan el presupuesto.
+2. Calcular que roles estan cubiertos por el mazo y los que estan escasos, comparando el número de cartas que cumplen cada rol
+3. Por cada candidata se calcula una puntuación, que pondera mas cubrir un rol escaso y que la carta encaje bien en la curva de maná segun su coste.
+4. Una vez obtenido todas las cartas filtradas y puntuadas, calculamos el subconjunto que maximiza la suma de puntos sin superar el presupuesto.
+ 
 ## Necesidad de acceso a la nube
-Las ofertas en el mercado de los moviles de segunda mano surgen en cualquier momento y suelen agotarse muy rapido.
-Debido al desplazamiento a menudo entre Granada y Nerja y las actividades diarias, no dispondre siempre de un ordenador fijo para evaluar las ofertas. Sera necesario contar 
-con un sistema en la nube accesible desde diferentes dispositivos. 
-+ 
+Haría falta desplegar el servicio en la nube porque a diario se actualiza los precios de las cartas y conviene almacenarlos para no tener que consultarlos cada vez que se hace
+el calculo.
+
+Otro motivo por el que haria falta el servicio en la nube es por que datos como la lista de candidatas se va actualizando, cuando, por ejemplo, mi amigo descubre cartas
+nuevas o cuando compra una carta nueva para el mazo y tiene que actualizarlo. Así si lo edita desde el móvil luego podra verlo desde el ordenador y viceversa.
+
+Por ultimo, el procesamiento es pesado para hacerlo cada vez en el móvil asi que lo mejor seria que lo haga un servicio centralizado y con el movil solo se consulte los resultados ya calculados.
 ## Juego de Rol
-![Fotografía de la tarjeta del cliente](img/tarjeta_cliente.jpeg)
-![Fotografía de la tarjeta del desarrollador](img/tajeta_desarrollador.jpeg)
-
-+ 
-## Referencias del dominio
-
-Para calcular los márgenes, evaluar la complejidad de las averías y estimar los precios de mercado, el sistema tomará como referencia los datos e información de las siguientes fuentes:
-
-* **Precios de mercado de reacondicionados:** [Back Market - Valoración de iPhone](https://www.backmarket.es/)
-* **Mercado de segunda mano:** [Wallapop - Ofertas y precios de compra](https://es.wallapop.com/)
-* **Complejidad técnica de averías:** [iFixit - Guías y dificultad de reparación de iPhone](https://es.ifixit.com/Device/iPhone)
-* **Costes de componentes y repuestos:**
-  * [Repuestos TIC - Catálogo I de repuestos de teléfonos](https://www.repuestostic.com)
-  * [Repuestos Fuentes - Catálogo II de repuestos de teléfonos](https://www.repuestosfuentes.es)
-+ 
+![Fotografía de la tarjeta del cliente](img/tarjeta_cliente.png)
+![Fotografía de la tarjeta del desarrollador](img/tarjeta_desarrollador.png)
+ 
+## Datos
+[obtención de los datos](Datos/datos.md)
+ 
 ## Documentación
 
-* [Configuración del repositorio](doc/configuracion.md)
+[Configuración del repositorio](doc/configuracion.md)
