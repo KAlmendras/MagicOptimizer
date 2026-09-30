@@ -6,15 +6,14 @@ y como Scryfall proporciona un export de todas las cartas en formato JSONL se pu
 Fuente: https://api.scryfall.com/bulk-data 
 
 Para el problema planteado se necesitan principalmente los siguientes campos:
-* Nombre e identificador de la carta (`name`, `oracle_id`).
-* Coste y valor de maná (`mana_cost`, `cmc`).
-* Identidad de color (`color_identity`).
-* Legalidad por formato (`legalities`).
-* Precio de mercado en euros (`prices.eur`).
+* Identificador de la carta con el nombre  (`name`) para cruzarla con la tabla de cartas candidatas y las cartas del mazo.
+* Coste y valor de maná (`mana_cost`, `cmc`) para calcular el ajuste de la curva de mana en la puntuación.
+* Identidad de color  (`color_identity`) para el filtro de color respecto al mazo.
+* Legalidad por formato (`legalities`) para el filtro de legalidad del formato de juego.
+* Precio de mercado en euros (`prices.eur`) para el filtro y restricción del presupuesto.
 
 un ejemplo seria:
 {
-  "oracle_id": "53236dd7-845a-444c-96d5-f41ed7325d8f",
   "name": "Rhystic Study",
   "mana_cost": "{2}{U}",
   "cmc": 3.0,
@@ -28,11 +27,9 @@ Los roles funcionales, el mazo actual, la lista de cartas candidatas y el presup
 ## Licencia de los datos
 
 Los datos utilizados proceden de Scryfall (https://scryfall.com), que los ofrece de forma gratuita al amparo de la Fan Content Policy de Wizards of the Coast,
-para la creación de software, investigación o contenido de comunidad relacionado con Magic: The Gathering.
+para la creación de software, investigación o contenido de comunidad relacionado con Magic: The Gathering.  https://company.wizards.com/en/legal/fancontentpolicy
 
-Las condiciones de uso de Scryfall no permiten usar su nombre o logotipos de forma que sugiera que el proyecto está respaldado por Scryfall, ni ofrecer los datos
-tal cual sin aportar valor añadido (simple republicación o proxy de los datos). El proyecto cumple esta condición porque los datos se combinan con la lógica de negocio propia
-descrita más arriba, y no se limita a mostrarlos.
+El proyecto cumple esta condición porque los datos se combinan con la lógica de negocio propia descrita más arriba, y no se limita a mostrarlos.
 
-Magic: The Gathering y los nombres de las cartas son marcas de Wizards of the Coast LLC. El uso de los datos de Scryfall no implica ningún tipo de afiliación o respaldo por 
-parte de Wizards of the Coast ni de Scryfall.
+MagicOptimizer es contenido de fan permitido bajo la Fan Content Policy.No aprobado/respaldado por Wizards. Parte de los materiales usados son propiedad de Wizards of the Coast.
+©Wizards of the Coast LLC.
