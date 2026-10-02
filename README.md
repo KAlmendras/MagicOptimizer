@@ -1,7 +1,7 @@
 # MagicOptimizer
 
 ## (Conceptos Básicos)
-Para entender el problema computacional, es necesario conocer unas breves reglas estructurales del formato Commander del juego de cartas Magic: The Gathering:
+Para entender el problema, es necesario conocer unas breves reglas estructurales del formato Commander del juego de cartas Magic: The Gathering:
 * El Comandante y la Identidad de Color: Cada jugador elige una carta líder (el "Comandante"). Los colores de esta carta dictan estrictamente qué colores pueden tener las demás cartas del mazo.
 * Restricción de Tamaño Exacto: Un mazo de Commander tiene exactamente 100 cartas (el Comandante + 99 cartas únicas). 
 * Tierras y Recursos: Para poder jugar cartas, se necesita "maná" (la moneda del juego). Este maná lo producen unas cartas llamadas "Tierras". Un mazo de 100 cartas necesita matemáticamente unas 36 tierras para funcionar, dejando unos 63 huecos para las cartas de acción.
@@ -9,7 +9,7 @@ Para entender el problema computacional, es necesario conocer unas breves reglas
 * Curva de Maná: Es la distribución estadística de los costes numéricos de las cartas (`cmc`). Un mazo necesita una campana de Gauss en sus costes (cartas baratas para el principio, algunas caras para el final) para no quedarse bloqueado en la partida.
 
 ## El Problema
-Un amigo mío juega habitualmente a este formato físico. Construir un mazo desde cero le toma dias de planificación. Cuando elige un nuevo Comandante, tiene que lidiar con un catálogo histórico de más de 25.000 cartas. 
+Un amigo mío juega habitualmente a Magic Commander en formato físico. Construir un mazo desde cero le toma dias de planificación. Cuando elige un nuevo Comandante, tiene que lidiar con un catálogo histórico de más de 25.000 cartas. 
 
 El problema es que le cuesta muchísimo trabajo saber qué conjunto exacto de 99 cartas maximiza la sinergia con su Comandante mientras mantiene una curva de maná perfecta, la proporción exacta de tierras y una cantidad viable de cartas de soporte. Si elige a ojo, acaba con mazos inconsistentes donde las cartas no interactúan entre sí o donde roba cartas demasiado caras que no puede jugar. Encontrar la combinación óptima analizando los textos de las 25.000 cartas es un problema de optimización combinatoria y procesamiento de lenguaje que sobrepasa la capacidad de cálculo mental de un humano.
 
@@ -23,7 +23,7 @@ Para resolver este problema, la aplicación toma como única entrada la carta se
    $S(C)$ = $p_m$ x $M(C)$ + $p_e$ x $E(C)$ + $p_r$ x $R(C)$
    * $M(C)$ (Coincidencia Mecánica): Utiliza álgebra booleana para evaluar la compatibilidad del texto. Por ejemplo, si el arquetipo es Tribal ("Goblin"), se evalúan variables booleanas: $B_{tipo}$ (si el tipo incluye Goblin) y $B_{texto}$ (si el texto menciona "Goblin"). El motor aplica: $M(C)$ = (0.6 x $B_{tipo}$) + (0.4 x $B_{texto}$).
 
-   * $E(C)$ (Eficiencia de Maná): Evalúa matemáticamente el coste numérico de la carta (cmc) aplicando un decaimiento exponencial (las cartas más baratas puntúan más alto para garantizar fluidez). El calculo se realizaria con la siguiente forrmula E(C) = e^(−λ · cmc) se ajusta el λ en 0.3 que seria el punto medio para que las cartas baratas no puntuan mucho mas que las caras.
+   * $E(C)$ (Eficiencia de Maná): Evalúa matemáticamente el coste numérico de la carta (cmc) aplicando un decaimiento exponencial (las cartas más baratas puntúan más alto para garantizar fluidez).
 
    * $R(C)$ (Rol Estructural): Evalúa si la carta aporta infraestructura vital (robar más cartas o generar maná extra). El motor lo detecta automáticamente aplicando Expresiones Regulares sobre el texto JSON:
      * Robo (Draw): Si la Regex coincide con el texto, la carta se etiqueta internamente como Es_Robo = True.
@@ -49,8 +49,8 @@ Otro motivo por el que haria falta el servicio en la nube es para resolver el pr
 
 Por ultimo, el procesamiento pesado lo realizaria el servidor para que desde el móvil solo necesites ingresar el comandante que quieras y te saque el mazo.
 ## Juego de Rol
-![Fotografía de la tarjeta del cliente](img/tarjeta_cliente.png)
-![Fotografía de la tarjeta del desarrollador](img/tarjeta_desarrollador.png)
+![Fotografía de la tarjeta del cliente](img/tarjeta_cliente.jpeg)
+![Fotografía de la tarjeta del desarrollador](img/tarjeta_desarrollador.jpeg)
  
 ## Datos 
 
